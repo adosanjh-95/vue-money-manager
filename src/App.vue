@@ -4,6 +4,7 @@
     <router-link to="/about">About</router-link>
   </div>
   <router-view />
+  <font-awesome-icon :icon="['fas', 'user-secret']" />
 </template>
 
 <style lang="scss">

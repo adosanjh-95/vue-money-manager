@@ -1,11 +1,18 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view />
-  <font-awesome-icon :icon="['fas', 'user-secret']" />
+  <TheHeader />
+  <main>
+    <router-view />
+  </main>
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import TheHeader from "./components/TheHeader/TheHeader.vue";
+
+export default defineComponent({
+  components: { TheHeader },
+});
+</script>
 
 <style lang="scss">
 #app {

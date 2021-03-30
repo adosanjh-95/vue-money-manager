@@ -1,3 +1,9 @@
-@import './variables.scss';
+@import './settings.variables';
 
-@import './base.scss';
+@import './tools.mixins';
+
+@import './generic';
+
+@import './elements';
+
+@import './components.theheader';

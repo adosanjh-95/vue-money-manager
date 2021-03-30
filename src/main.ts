@@ -4,10 +4,12 @@ import router from "./router";
 import store from "./store";
 import "@/assets/scss/main.scss";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
+import { faWallet, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faUserSecret);
+library.add(faWallet);
+library.add(faBars);
+library.add(faTimes);
 
 const app = createApp(App);
 

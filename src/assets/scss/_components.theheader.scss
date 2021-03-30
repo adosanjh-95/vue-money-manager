@@ -118,6 +118,10 @@
     &--active {
       background-color: $primary;
 
+      &:hover {
+        cursor: default;
+      }
+
       @include desktop {
         color: $secondary;
       }

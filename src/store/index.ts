@@ -27,6 +27,7 @@ const state: State = {
 };
 
 interface MonthSummary {
+  id: string;
   date: Date;
   net: number;
   outgoing: number;
@@ -35,12 +36,13 @@ interface MonthSummary {
 
 const getters = {
   getMonthSummary: (state: State) => (monthId: string): MonthSummary => {
-    const month = state.monthsData.find(
+    const { id, date } = state.monthsData.find(
       (month) => month.id === monthId
     ) as Month;
 
     return {
-      date: month.date,
+      id,
+      date,
       net: 200,
       outgoing: 150,
       incoming: 200,

@@ -17,9 +17,9 @@
       />
       <div class="nav__routes">
         <router-link
-          v-for="(route, index) in routes"
-          v-bind:key="index"
-          :to="route.path"
+          v-for="route in getRoutes"
+          v-bind:key="route.path"
+          :to="{ name: route.name }"
           active-class="nav__route--active"
           class="nav__route"
           @click="closeNav"
@@ -38,9 +38,13 @@ import { routes } from "@/router";
 export default defineComponent({
   data() {
     return {
-      routes,
       openNav: false,
     };
+  },
+  computed: {
+    getRoutes() {
+      return routes.filter((route) => !route.hide);
+    },
   },
   methods: {
     showNav(): void {

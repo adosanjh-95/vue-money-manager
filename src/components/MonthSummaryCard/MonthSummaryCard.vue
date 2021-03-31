@@ -24,10 +24,12 @@
         class="month_card__action month_card__action--trash"
         @click="$emit('delete')"
       />
-      <font-awesome-icon
-        :icon="['fas', 'expand-alt']"
-        class="month_card__action month_card__action--expand"
-      />
+      <router-link :to="{ name: 'Month', params: { id } }">
+        <font-awesome-icon
+          :icon="['fas', 'expand-alt']"
+          class="month_card__action month_card__action--expand"
+        />
+      </router-link>
     </div>
   </div>
 </template>
@@ -37,6 +39,7 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   props: {
+    id: { type: String, required: true },
     date: { type: Date, required: true },
     net: { type: Number, required: true },
     incoming: { type: Number, required: true },

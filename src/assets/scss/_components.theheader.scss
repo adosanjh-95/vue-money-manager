@@ -6,6 +6,7 @@
   height: 4rem;
   max-width: $max-width;
   margin: auto;
+  text-align: center;
 
   @include desktop {
     height: 5rem;
@@ -63,6 +64,7 @@
   background-color: $secondary;
   transform: translateX(100%);
   transition: transform 0.2s;
+  z-index: 5;
 
   @include desktop {
     position: unset;

@@ -1,0 +1,78 @@
+.toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+
+  @include desktop {
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+
+  &__starting_amount {
+    font-size: 1rem;
+
+    @include desktop {
+      font-size: 1.25rem;
+    }
+  }
+}
+
+.new_month_btn {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  background-color: $primary;
+  outline: none;
+  border: none;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+  
+  &:hover {
+    opacity: 0.5;
+  }
+
+  @include desktop {
+    position: unset;
+    width: unset;
+    height: unset;
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__text {
+    display: none;
+
+    @include desktop {
+      display: inline;
+      color: white;
+      font-size: 1rem;
+      margin-right: 1rem;
+    }
+  }
+
+  &__icon {
+    color: white;
+    font-size: 1.5rem;
+
+    @include desktop {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.months {
+  display: grid;
+  grid-gap: 1rem 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+
+  @include desktop {
+    grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+  }
+}

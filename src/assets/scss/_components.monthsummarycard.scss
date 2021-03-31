@@ -1,0 +1,112 @@
+.month_card {
+  border-radius: $border-radius;
+  background-color: white;
+  padding: 1rem;
+  box-shadow: $box-shadow;
+  text-align: center;
+
+  @include desktop {
+    padding: 1.5rem;
+    position: relative;
+
+    &:hover > &__actions {
+      display: flex;
+    }
+  }
+
+  &__date {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: normal;
+
+    @include desktop {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__net {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+
+    @include desktop {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__breakdown {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__incoming {
+    margin-right: 2rem;
+
+    @include desktop {
+      margin-right: 3rem;
+    }
+  }
+
+  &__incoming,
+  &__outgoing {
+    font-size: 1.2rem;
+    font-weight: normal;
+
+    @include desktop {
+      font-size: 1.4rem;
+    }
+  }
+
+  &__incoming_icon {
+    color: green;
+  }
+
+  &__outgoing_icon {
+    color: red;
+  }
+
+  &__actions {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+
+    @include desktop {
+      display: none;
+      position: absolute;
+      background-color: white;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      margin: 0;
+      align-items: center;
+      border-radius: $border-radius;
+    }
+  }
+
+  &__action {
+    font-size: 1.2rem;
+    cursor: pointer;
+
+    &:not(:last-of-type) {
+      margin-right: 1rem;
+    }
+
+    @include desktop {
+      font-size: 1.5rem;
+    }
+
+    &:hover {
+      opacity: 0.5;
+    }
+    
+    &--trash {
+      color: rgba(0,0,0,0.7);
+    }
+
+    &--expand {
+      color: $primary;
+    }
+  }
+}

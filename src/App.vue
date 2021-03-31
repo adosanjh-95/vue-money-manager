@@ -11,5 +11,8 @@ import TheHeader from "./components/TheHeader/TheHeader.vue";
 
 export default defineComponent({
   components: { TheHeader },
+  beforeCreate() {
+    this.$store.commit("initialiseStore");
+  },
 });
 </script>

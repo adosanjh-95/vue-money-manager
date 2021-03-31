@@ -25,6 +25,10 @@ library.add(faArrowCircleDown);
 library.add(faTrash);
 library.add(faExpandAlt);
 
+store.subscribe((mutation, state) => {
+  localStorage.setItem("store", JSON.stringify(state));
+});
+
 const app = createApp(App);
 
 app.use(store);

@@ -13,7 +13,7 @@ interface Transaction {
 }
 interface Month {
   id: string;
-  date: Date;
+  date: number;
   transactions: Transaction[];
 }
 interface State {
@@ -42,7 +42,7 @@ const getters = {
 
     return {
       id,
-      date,
+      date: new Date(date),
       net: 200,
       outgoing: 150,
       incoming: 200,
@@ -51,6 +51,11 @@ const getters = {
 };
 
 const mutations = {
+  initialiseStore(state: State): void {
+    if (localStorage.getItem("store")) {
+      Object.assign(state, JSON.parse(localStorage.getItem("store") as string));
+    }
+  },
   addMonth(state: State) {
     const numberExistingMonths = state.monthsData.length;
 
@@ -59,15 +64,19 @@ const mutations = {
 
       state.monthsData.push({
         id: uuidv4(),
-        date: new Date(date.getFullYear(), date.getMonth(), 1),
+        date: new Date(date.getFullYear(), date.getMonth(), 1).getTime(),
         transactions: [],
       });
     } else {
-      const previousDate = state.monthsData[numberExistingMonths - 1].date;
+      const previousDate = new Date(
+        state.monthsData[numberExistingMonths - 1].date
+      );
 
       state.monthsData.push({
         id: uuidv4(),
-        date: new Date(previousDate.setMonth(previousDate.getMonth() + 1)),
+        date: new Date(
+          previousDate.setMonth(previousDate.getMonth() + 1)
+        ).getTime(),
         transactions: [],
       });
     }

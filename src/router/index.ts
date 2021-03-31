@@ -3,11 +3,7 @@ import Home from "../views/Home.vue";
 import About from "../views/About.vue";
 import Month from "../views/Month.vue";
 
-type Route = RouteRecordRaw & {
-  hide?: boolean;
-};
-
-export const routes: Array<Route> = [
+export const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "Home",
@@ -23,7 +19,7 @@ export const routes: Array<Route> = [
     name: "Month",
     component: Month,
     props: true,
-    hide: true,
+    meta: { hide: true },
   },
 ];
 

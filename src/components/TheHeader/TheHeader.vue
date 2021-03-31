@@ -43,7 +43,7 @@ export default defineComponent({
   },
   computed: {
     getRoutes() {
-      return routes.filter((route) => !route.hide);
+      return routes.filter((route) => !route.meta?.hide);
     },
   },
   methods: {

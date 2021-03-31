@@ -38,6 +38,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
+  emits: ["delete"],
   props: {
     id: { type: String, required: true },
     date: { type: Date, required: true },

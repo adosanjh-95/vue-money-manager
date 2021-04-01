@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Home from "../views/Home.vue";
-import About from "../views/About.vue";
 import Month from "../views/Month.vue";
 
 export const routes: Array<RouteRecordRaw> = [
@@ -10,9 +9,12 @@ export const routes: Array<RouteRecordRaw> = [
     component: Home,
   },
   {
-    path: "/about",
-    name: "About",
-    component: About,
+    path: "/common-transactions",
+    name: "Common Transactions",
+    component: () =>
+      /* webpackChunkName: "common-transactions" */ import(
+        "../views/TransactionsCommon.vue"
+      ),
   },
   {
     path: "/:id",

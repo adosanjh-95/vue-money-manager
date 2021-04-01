@@ -42,6 +42,22 @@ export interface FullMonthData {
   incoming: number;
 }
 
+interface AddTransactionPayload {
+  monthId: string;
+  type: TransactionTypes;
+  description: string;
+  amount: number;
+}
+
+interface DeleteTransactionPayload {
+  monthId: string;
+  transactionId: string;
+}
+
+interface EditTransactionPayload extends AddTransactionPayload {
+  id: string;
+}
+
 const getters = {
   getMonthSummary: (state: State) => (monthId: string): MonthSummary => {
     const { id, date } = state.monthsData.find(
@@ -57,7 +73,7 @@ const getters = {
     };
   },
   getMonthData: (state: State) => (monthId: string): FullMonthData => {
-    const { date } = state.monthsData.find(
+    const { date, transactions } = state.monthsData.find(
       (month) => month.id === monthId
     ) as Month;
 
@@ -66,26 +82,7 @@ const getters = {
       net: 200,
       outgoing: 150,
       incoming: 200,
-      transactions: [
-        {
-          id: "1",
-          type: TransactionTypes.IN,
-          description: "Test in transaction",
-          amount: 10,
-        },
-        {
-          id: "2",
-          type: TransactionTypes.OUT,
-          description: "Test out transaction",
-          amount: 20,
-        },
-        {
-          id: "3",
-          type: TransactionTypes.IN,
-          description: "Test in transaction 2",
-          amount: 40,
-        },
-      ],
+      transactions,
     };
   },
 };
@@ -123,6 +120,59 @@ const mutations = {
   },
   deleteMonth: (state: State, monthId: string): void => {
     state.monthsData = state.monthsData.filter((month) => month.id !== monthId);
+  },
+  addTransaction: (state: State, payload: AddTransactionPayload): void => {
+    const { monthId, type, amount, description } = payload;
+
+    const targetMonth = state.monthsData.findIndex(
+      (month) => month.id === monthId
+    );
+
+    state.monthsData[targetMonth].transactions.push({
+      id: uuidv4(),
+      type,
+      amount,
+      description,
+    });
+  },
+  deleteTransaction: (state: State, payload: DeleteTransactionPayload) => {
+    const { monthId, transactionId } = payload;
+
+    const targetMonth = state.monthsData.findIndex(
+      (month) => month.id === monthId
+    );
+
+    state.monthsData[targetMonth].transactions = state.monthsData[
+      targetMonth
+    ].transactions.filter((transaction) => transaction.id !== transactionId);
+  },
+  editTransaction: (state: State, payload: EditTransactionPayload) => {
+    const { monthId, id, amount, description, type } = payload;
+
+    const targetMonthIndex = state.monthsData.findIndex(
+      (month) => month.id === monthId
+    );
+
+    const targetMonth = state.monthsData[targetMonthIndex];
+
+    const targetTransactionIndex = targetMonth.transactions.findIndex(
+      (transaction) => transaction.id === id
+    );
+
+    const updatedTransaction = {
+      ...targetMonth.transactions[targetTransactionIndex],
+      amount,
+      description,
+      type,
+    };
+
+    const updatedTransactions = [
+      ...targetMonth.transactions.slice(0, targetTransactionIndex),
+      updatedTransaction,
+      ...targetMonth.transactions.slice(targetTransactionIndex + 1),
+    ];
+
+    targetMonth.transactions = updatedTransactions;
   },
 };
 

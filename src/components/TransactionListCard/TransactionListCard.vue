@@ -3,11 +3,13 @@
     <div class="transaction_list_card__info">
       <h2 class="transaction_list_card__title">
         {{ title }}
-        <button class="transaction_list_card__trash_btn">
+        <button
+          class="transaction_list_card__trash_btn"
+          @click="$emit('delete-parent')"
+        >
           <font-awesome-icon
             :icon="['fas', 'trash']"
             class="transaction_list_card__trash_btn_icon"
-            @click="$emit('delete')"
           />
         </button>
       </h2>
@@ -48,16 +50,33 @@
       </div>
     </div>
 
-    <!-- Need Transaction Cards here -->
     <div class="transaction_list">
       <TransactionListItem
         v-for="transaction in getFilteredTransactions"
         :key="transaction.id"
         v-bind="transaction"
+        @delete="$emit('delete-transaction', transaction.id)"
+        @edit="
+          $emit('edit-transaction', {
+            id: transaction.id,
+            type: 'Out',
+            amount: 20.5,
+            description: 'I am an edited transaction added as a dummy',
+          })
+        "
       />
     </div>
 
-    <button class="transaction_list_card__new_transaction_btn">
+    <button
+      class="transaction_list_card__new_transaction_btn"
+      @click="
+        $emit('add-transaction', {
+          type: 'In',
+          amount: 10.5,
+          description: 'I am a new transaction added as a dummy',
+        })
+      "
+    >
       <font-awesome-icon
         :icon="['fas', 'plus']"
         class="transaction_list_card__new_transaction_btn_icon"

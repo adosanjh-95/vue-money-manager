@@ -5,8 +5,17 @@
     :incoming="getMonthInformation.incoming"
     :outgoing="getMonthInformation.outgoing"
     :transactions="getMonthInformation.transactions"
-    @delete="deleteMonth"
+    @delete-parent="deleteMonth"
     class="transactions"
+    @delete-transaction="
+      (transactionId) => deleteTransaction({ monthId: id, transactionId })
+    "
+    @add-transaction="
+      (transaction) => addTransaction({ monthId: id, ...transaction })
+    "
+    @edit-transaction="
+      (transaction) => editTransaction({ monthId: id, ...transaction })
+    "
   />
 </template>
 
@@ -14,6 +23,7 @@
 import TransactionListCard from "@/components/TransactionListCard/TransactionListCard.vue";
 import { FullMonthData } from "@/store";
 import { defineComponent } from "vue";
+import { mapMutations } from "vuex";
 
 export default defineComponent({
   props: {
@@ -27,6 +37,7 @@ export default defineComponent({
       this.$store.commit("deleteMonth", this.id);
       this.$router.push({ name: "Home" });
     },
+    ...mapMutations(["addTransaction", "deleteTransaction", "editTransaction"]),
   },
   computed: {
     getMonthInformation(): FullMonthData {

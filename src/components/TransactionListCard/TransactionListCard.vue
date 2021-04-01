@@ -49,7 +49,13 @@
     </div>
 
     <!-- Need Transaction Cards here -->
-    <div class="transaction_list"></div>
+    <div class="transaction_list">
+      <TransactionListItem
+        v-for="transaction in getFilteredTransactions"
+        :key="transaction.id"
+        v-bind="transaction"
+      />
+    </div>
 
     <button class="transaction_list_card__new_transaction_btn">
       <font-awesome-icon
@@ -63,8 +69,10 @@
 <script lang="ts">
 import { Transaction } from "@/store";
 import { defineComponent, PropType } from "vue";
+import TransactionListItem from "../TransactionListItem/TransactionListItem.vue";
 
 export default defineComponent({
+  components: { TransactionListItem },
   emit: ["delete"],
   data() {
     return {
@@ -96,6 +104,17 @@ export default defineComponent({
   methods: {
     setSelectedFilter(value: string): void {
       this.selectedFilter = value;
+    },
+  },
+  computed: {
+    getFilteredTransactions(): Transaction[] {
+      if (this.selectedFilter === "All") {
+        return this.transactions;
+      } else {
+        return this.transactions.filter(
+          (transaction) => transaction.type === this.selectedFilter
+        );
+      }
     },
   },
 });

@@ -1,0 +1,136 @@
+.transaction {
+  display: flex;
+  border-radius: 5px;
+  padding: 0.5rem;
+  border: 1px solid $primary;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  @include desktop {
+    padding: 0;
+    flex-wrap: unset;
+    align-items: center
+  }
+
+  &__type {
+   justify-self: flex-end;
+   margin-right: 0.25rem;
+   text-align: right;
+
+   @include desktop {
+     width: 5%;
+     text-align: center;
+     margin-right: 0;
+     padding: 0.75rem 0;
+     
+     &_in {
+       background-color: green;
+     }
+
+     &_out {
+      background-color: red;
+    }
+   }
+  }
+
+  &__icon {
+    @include desktop {
+      font-size: 1.2rem;
+    }
+    
+    &_in {
+      color: green;
+
+      @include desktop {
+        color: white;
+      }
+    }
+
+    &_out {
+      color: red;
+
+      @include desktop {
+        color: white;
+      }
+    }
+  }
+
+  &__amount {
+    font-weight: bold;
+
+    @include desktop {
+      font-weight: normal;
+      margin-left: 1rem;
+      font-size: 1.1rem;
+      width: 10%;
+    }
+
+    &_in {
+      color: green;
+
+      @include desktop {
+        color: black;
+      }
+    }
+
+    &_out {
+      color: red;
+
+      @include desktop {
+        color: black;
+      }
+    }
+  }
+
+  &__description {
+    margin-top: 0.5rem;
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+
+    @include desktop {
+      margin-left: 1rem;
+      width: unset;
+      flex: 1;
+      text-align: left;
+      margin-top: 0;
+      font-size: 1.1rem;
+    }
+  }
+
+  &__options {
+    margin-top: 0.5rem;
+
+    @include desktop {
+      margin-top: 0;
+      width: 10%;
+      padding: 0 1rem;
+      text-align: center;
+    }
+  }
+
+  &__option {
+    cursor: pointer;
+    font-size: 1.2rem;
+
+    @include desktop {
+      font-size: 1.3rem;
+    }
+
+    &:hover {
+      opacity: 0.5;
+    }
+
+    &:not(:last-of-type) {
+      margin-right: 0.75rem;
+    }
+
+    &--edit {
+      color: $primary;
+    }
+
+    &--trash {
+      color: rgba(0, 0, 0, 0.7);
+    }
+  }
+}

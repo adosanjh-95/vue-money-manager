@@ -2,8 +2,8 @@ import { createStore } from "vuex";
 import { v4 as uuidv4 } from "uuid";
 
 enum TransactionTypes {
-  IN,
-  OUT,
+  IN = "In",
+  OUT = "Out",
 }
 export interface Transaction {
   id: string;

@@ -16,6 +16,7 @@ import {
   faTrash,
   faExpandAlt,
   faMoneyCheck,
+  faEdit,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -30,6 +31,7 @@ library.add(faArrowCircleUp);
 library.add(faArrowCircleDown);
 library.add(faTrash);
 library.add(faExpandAlt);
+library.add(faEdit);
 
 store.subscribe((mutation, state) => {
   localStorage.setItem("store", JSON.stringify(state));

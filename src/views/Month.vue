@@ -6,6 +6,7 @@
     :outgoing="getMonthInformation.outgoing"
     :transactions="getMonthInformation.transactions"
     @delete="deleteMonth"
+    class="transactions"
   />
 </template>
 
@@ -58,3 +59,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.transactions {
+  margin-bottom: 4rem;
+}
+</style>

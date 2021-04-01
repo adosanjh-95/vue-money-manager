@@ -178,7 +178,7 @@
 
     @include desktop {
       position: unset;
-      margin-top: 2rem;
+      margin-top: 1rem;
       border-radius: 3px;
       width: 100%;
       background-color: white;
@@ -201,3 +201,11 @@
   }
 }
 
+.transaction_list {
+  margin-top: 1.5rem;
+
+  & >:not(:last-child) {
+    margin-bottom: 0.75rem;
+  }
+
+}

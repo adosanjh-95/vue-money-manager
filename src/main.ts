@@ -9,16 +9,22 @@ import {
   faBars,
   faTimes,
   faPlus,
+  faArrowUp,
+  faArrowDown,
   faArrowCircleUp,
   faArrowCircleDown,
   faTrash,
   faExpandAlt,
+  faMoneyCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 library.add(faWallet);
 library.add(faBars);
 library.add(faTimes);
+library.add(faMoneyCheck);
+library.add(faArrowUp);
+library.add(faArrowDown);
 library.add(faPlus);
 library.add(faArrowCircleUp);
 library.add(faArrowCircleDown);

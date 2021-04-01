@@ -5,7 +5,7 @@ enum TransactionTypes {
   IN,
   OUT,
 }
-interface Transaction {
+export interface Transaction {
   id: string;
   type: TransactionTypes;
   description: string;
@@ -34,6 +34,14 @@ interface MonthSummary {
   incoming: number;
 }
 
+export interface FullMonthData {
+  date: Date;
+  transactions: Transaction[];
+  net: number;
+  outgoing: number;
+  incoming: number;
+}
+
 const getters = {
   getMonthSummary: (state: State) => (monthId: string): MonthSummary => {
     const { id, date } = state.monthsData.find(
@@ -46,6 +54,38 @@ const getters = {
       net: 200,
       outgoing: 150,
       incoming: 200,
+    };
+  },
+  getMonthData: (state: State) => (monthId: string): FullMonthData => {
+    const { date } = state.monthsData.find(
+      (month) => month.id === monthId
+    ) as Month;
+
+    return {
+      date: new Date(date),
+      net: 200,
+      outgoing: 150,
+      incoming: 200,
+      transactions: [
+        {
+          id: "1",
+          type: TransactionTypes.IN,
+          description: "Test in transaction",
+          amount: 10,
+        },
+        {
+          id: "2",
+          type: TransactionTypes.OUT,
+          description: "Test out transaction",
+          amount: 20,
+        },
+        {
+          id: "3",
+          type: TransactionTypes.IN,
+          description: "Test in transaction 2",
+          amount: 40,
+        },
+      ],
     };
   },
 };

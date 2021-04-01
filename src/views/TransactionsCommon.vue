@@ -1,5 +1,35 @@
 <template>
-  <div class="about">
-    <h1>This is the common transactions page</h1>
-  </div>
+  <TransactionListCard
+    title="Common Transactions"
+    hideDeleteParent
+    :transactions="commonTransactions"
+    class="transactions"
+    @delete-transaction="
+      (transactionId) => deleteCommonTransaction(transactionId)
+    "
+    @add-transaction="(transaction) => addCommonTransaction(transaction)"
+    @edit-transaction="(transaction) => editCommonTransaction(transaction)"
+  />
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import { mapMutations, mapState } from "vuex";
+import TransactionListCard from "@/components/TransactionListCard/TransactionListCard.vue";
+
+export default defineComponent({
+  computed: {
+    ...mapState(["commonTransactions"]),
+  },
+  methods: {
+    ...mapMutations([
+      "addCommonTransaction",
+      "editCommonTransaction",
+      "deleteCommonTransaction",
+    ]),
+  },
+  components: {
+    TransactionListCard,
+  },
+});
+</script>

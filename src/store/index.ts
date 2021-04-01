@@ -5,11 +5,13 @@ enum TransactionTypes {
   IN = "In",
   OUT = "Out",
 }
-export interface Transaction {
-  id: string;
+interface TransactionDetails {
   type: TransactionTypes;
   description: string;
   amount: number;
+}
+export interface Transaction extends TransactionDetails {
+  id: string;
 }
 interface Month {
   id: string;
@@ -18,10 +20,12 @@ interface Month {
 }
 interface State {
   startingAmount: number;
+  commonTransactions: Transaction[];
   monthsData: Month[];
 }
 
 const state: State = {
+  commonTransactions: [],
   startingAmount: 200,
   monthsData: [],
 };
@@ -42,18 +46,14 @@ export interface FullMonthData {
   incoming: number;
 }
 
-interface AddTransactionPayload {
+interface AddTransactionPayload extends TransactionDetails {
   monthId: string;
-  type: TransactionTypes;
-  description: string;
-  amount: number;
 }
 
 interface DeleteTransactionPayload {
   monthId: string;
   transactionId: string;
 }
-
 interface EditTransactionPayload extends AddTransactionPayload {
   id: string;
 }
@@ -102,7 +102,7 @@ const mutations = {
       state.monthsData.push({
         id: uuidv4(),
         date: new Date(date.getFullYear(), date.getMonth(), 1).getTime(),
-        transactions: [],
+        transactions: [...state.commonTransactions],
       });
     } else {
       const previousDate = new Date(
@@ -114,7 +114,7 @@ const mutations = {
         date: new Date(
           previousDate.setMonth(previousDate.getMonth() + 1)
         ).getTime(),
-        transactions: [],
+        transactions: [...state.commonTransactions],
       });
     }
   },
@@ -173,6 +173,39 @@ const mutations = {
     ];
 
     targetMonth.transactions = updatedTransactions;
+  },
+  addCommonTransaction: (state: State, payload: TransactionDetails) => {
+    state.commonTransactions.push({
+      id: uuidv4(),
+      ...payload,
+    });
+  },
+  deleteCommonTransaction: (state: State, transactionId: string) => {
+    state.commonTransactions = state.commonTransactions.filter(
+      (transaction) => transaction.id !== transactionId
+    );
+  },
+  editCommonTransaction: (state: State, payload: Transaction) => {
+    const { id, type, amount, description } = payload;
+
+    const targetTransactionIndex = state.commonTransactions.findIndex(
+      (transaction) => transaction.id === id
+    );
+
+    const updatedTransaction = {
+      ...state.commonTransactions[targetTransactionIndex],
+      amount,
+      description,
+      type,
+    };
+
+    const updatedTransactions = [
+      ...state.commonTransactions.slice(0, targetTransactionIndex),
+      updatedTransaction,
+      ...state.commonTransactions.slice(targetTransactionIndex + 1),
+    ];
+
+    state.commonTransactions = updatedTransactions;
   },
 };
 

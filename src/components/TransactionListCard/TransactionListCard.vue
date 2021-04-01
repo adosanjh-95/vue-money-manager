@@ -6,6 +6,7 @@
         <button
           class="transaction_list_card__trash_btn"
           @click="$emit('delete-parent')"
+          v-if="!hideDeleteParent"
         >
           <font-awesome-icon
             :icon="['fas', 'trash']"
@@ -13,9 +14,14 @@
           />
         </button>
       </h2>
-      <h5 class="transaction_list_card__net">£{{ net }}</h5>
-      <h5 class="transaction_list_card__incoming">£{{ incoming }}</h5>
-      <h5 class="transaction_list_card__outgoing">£{{ outgoing }}</h5>
+      <!-- Fix issue here when these are not present and grid has a lot of empty space -->
+      <h5 v-if="net" class="transaction_list_card__net">£{{ net }}</h5>
+      <h5 v-if="incoming" class="transaction_list_card__incoming">
+        £{{ incoming }}
+      </h5>
+      <h5 v-if="outgoing" class="transaction_list_card__outgoing">
+        £{{ outgoing }}
+      </h5>
       <div class="transaction_list_card__filters">
         <font-awesome-icon
           :icon="['fas', 'money-check']"
@@ -69,13 +75,7 @@
 
     <button
       class="transaction_list_card__new_transaction_btn"
-      @click="
-        $emit('add-transaction', {
-          type: 'In',
-          amount: 10.5,
-          description: 'I am a new transaction added as a dummy',
-        })
-      "
+      @click="addTransaction"
     >
       <font-awesome-icon
         :icon="['fas', 'plus']"
@@ -103,17 +103,21 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    hideDeleteParent: {
+      type: Boolean,
+      default: false,
+    },
     net: {
       type: Number,
-      required: true,
+      default: null,
     },
     incoming: {
       type: Number,
-      required: true,
+      default: null,
     },
     outgoing: {
       type: Number,
-      required: true,
+      default: null,
     },
     transactions: {
       type: Array as PropType<Transaction[]>,
@@ -123,6 +127,14 @@ export default defineComponent({
   methods: {
     setSelectedFilter(value: string): void {
       this.selectedFilter = value;
+    },
+    addTransaction() {
+      this.$emit("add-transaction", {
+        type: "In",
+        amount: 10.5,
+        description: "I am a new transaction added as a dummy",
+      });
+      this.selectedFilter = "All";
     },
   },
   computed: {

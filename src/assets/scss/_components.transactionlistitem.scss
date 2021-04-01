@@ -34,10 +34,8 @@
   }
 
   &__icon {
-    @include desktop {
-      font-size: 1.2rem;
-    }
-
+    font-size: 1.2rem;
+    
     &_in {
       color: green;
 
@@ -56,12 +54,12 @@
   }
 
   &__amount {
+    font-size: 1.1rem;
     font-weight: bold;
 
     @include desktop {
       font-weight: normal;
       margin-left: 1rem;
-      font-size: 1.1rem;
       width: 10%;
     }
 

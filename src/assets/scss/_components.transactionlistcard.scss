@@ -80,7 +80,7 @@
     justify-self: flex-end;
 
     @include desktop {
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       justify-self: unset;
 
       &:before {
@@ -96,7 +96,7 @@
     justify-self: flex-start;
 
     @include desktop {
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       justify-self: unset;
     }
   }
